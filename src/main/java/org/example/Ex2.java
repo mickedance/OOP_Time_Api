@@ -16,7 +16,8 @@ DateTimeFormatter: Torsdag 29 mars
 
     */
 
-    /** Print out a String of 29th of march in Swedish language and with a first letter in uppercase
+    /**
+     * Print out a String of 29th of march in Swedish language and with a first letter in uppercase
      *
      * @param args
      */
@@ -25,7 +26,7 @@ DateTimeFormatter: Torsdag 29 mars
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE dd MMMM").withLocale(new Locale("sv"));
         dtf.format(date);
         String s = date.format(dtf);
-        s = s.substring(0,1).toUpperCase() + s.substring(1);
+        s = s.substring(0, 1).toUpperCase() + s.substring(1);
         System.out.println(s);
     }
 }
