@@ -6,29 +6,31 @@ import java.util.Scanner;
 public class ExExtra {
     /**
      * In this class we make a calendar
-     *
-     *
      */
 
     private static LocalDate currentMonth;
 
     /**
-     * We initate a scanner so that user can use keyboard inputs to go back and forward in calendar by month
+     * We initiate a scanner so that user can use keyboard inputs to go back and forward in calendar by month
      *
      * @param args
      */
     public static void main(String[] args) {
         currentMonth = LocalDate.parse("2018-01-01");
+        //currentMonth = currentMonth.minusMonths(1);
         Scanner sc = new Scanner(System.in);
         drawMonth();
-        while (sc.hasNext()) {
-            if (sc.nextLine().trim().equalsIgnoreCase("n")) {
+        while (true) {
+            String input = sc.nextLine();
+            if (input.trim().equalsIgnoreCase("n")) {
                 currentMonth = currentMonth.plusMonths(1);
                 System.out.println("next");
                 drawMonth();
-            } else if (sc.nextLine().trim().equalsIgnoreCase("v")) {
+            } else if (input.trim().equalsIgnoreCase("b")) {
                 currentMonth = currentMonth.minusMonths(1);
                 drawMonth();
+            } else {
+                break;
             }
         }
 
@@ -48,18 +50,30 @@ public class ExExtra {
             else
                 System.out.print("\t" + days[i]);
         }
+
         for (int i = 0; i < currentMonth.lengthOfMonth(); i++) {
             LocalDate thisDay = currentMonth.plusDays(i);
+            String tabs = "\t";
 
-            if (thisDay.getDayOfWeek().getValue() == 1) {
-                System.out.print("\n" + thisDay.getDayOfMonth());
-            } else {
-                System.out.print("\t" + thisDay.getDayOfMonth());
+            if(thisDay.getDayOfWeek().getValue()==1 || thisDay.getDayOfMonth()==1){
+                tabs= "";
             }
+            //Set how many tabs before first date of month
+            if (thisDay.getDayOfMonth() == 1) {
+                for (int j = 1; j < thisDay.getDayOfWeek().getValue(); j++) {
+                    tabs = tabs.concat("\t");
+                }
+            }
+            if (thisDay.getDayOfWeek().getValue() == 1 || thisDay.getDayOfMonth() == 1)
+                System.out.println();
+
+            System.out.print(tabs + thisDay.getDayOfMonth());
+
         }
         System.out.println();
         System.out.println();
-        System.out.println("Press 'N' for next month Or 'B' for month before");
+        System.out.println("Press 'N' for next month Or 'B' for month before.");
+        System.out.println("Or other key to stop app");
         System.out.println("##########################");
         System.out.println();
 
